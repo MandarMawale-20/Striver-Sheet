@@ -15,9 +15,10 @@ class Node {
 class Operations {
 
     public Node DeleteHead(Node head) {
-        Node temp = head.next;
-
-        return temp;
+        if (head == null)
+            return null;
+        
+        return head.next;
     }
 
     public Node Deletetail(Node head) {
@@ -26,7 +27,7 @@ class Operations {
 
         Node temp = head;
         if (temp.next == null)
-            return head = null;
+            return null;
         while (temp.next.next != null) {
             temp = temp.next;
         }
@@ -69,7 +70,7 @@ class Operations {
             return null;
         if (head.next.data == target)
             return DeleteHead(head);
-        
+
         Node temp = head;
         Node prevtemp = temp;
         while (temp.next != null && temp.next.data != target) {
@@ -81,14 +82,14 @@ class Operations {
         return head;
     }
 
-        public Node DeleteBasedOnIndex(Node head, int index) {
+    public Node DeleteBasedOnIndex(Node head, int index) {
         if (head == null)
             return null;
         if (1 == index)
             return DeleteHead(head);
         Node temp = head;
-        
-        while (temp.next != null && index-1>1) {
+
+        while (temp.next != null && index - 1 > 1) {
             temp = temp.next;
             index--;
         }
@@ -97,8 +98,6 @@ class Operations {
 
         return head;
     }
-
-
 
     public void printList(Node head) {
         Node temp = head;
@@ -132,7 +131,7 @@ public class DeletionInLinkedList {
 
         head = ops.DeleteAfter(head, 2);
         ops.printList(head);
-        
+
         head = ops.DeleteBefore(head, 3);
         ops.printList(head);
 
