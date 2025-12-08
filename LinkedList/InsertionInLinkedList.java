@@ -9,6 +9,7 @@ class Node{
 
     Node(int data1){
         data = data1;
+        next = null;
     }
 }
 
@@ -16,83 +17,80 @@ class Operations{
 
     public Node InsertatHead(int data,Node head){
         Node temp = new Node(data,head);
-        head  = temp;
-
+        head = temp;
         return head;
     }
 
-    public void InsertTail(int data,Node head){
-         Node temp = head;
+    public Node InsertTail(int data,Node head){
+        if(head == null) return new Node(data);
+        Node temp = head;
         while(temp.next != null){
             temp = temp.next;
         }
         Node newNode = new Node(data);
         temp.next = newNode;
+        return head;
     }
 
     public boolean InsertAfter(int data,int target,Node head){
+        if(head == null) return false;
         Node temp = head;
-        while(temp.data != target && temp != null){
+        while(temp != null && temp.data != target){
             temp = temp.next;
         }
         if(temp == null) return false;
         Node newNode = new Node(data);
         newNode.next = temp.next;
         temp.next = newNode;
-
         return true;
     }
 
-    public boolean InsertBefore(int data,int target,Node head){
+    public Node InsertBefore(int data,int target,Node head){
+        if(head == null) return null;
+        if(head.data == target) return InsertatHead(data,head);
         Node temp = head;
         Node beforetemp = null;
-        while(temp.data != target && temp != null){
+        while(temp != null && temp.data != target){
             beforetemp = temp;
             temp = temp.next;
         }
-        if(temp == null) return false;
+        if(temp == null) return head;
         Node newNode = new Node(data);
         newNode.next = beforetemp.next;
         beforetemp.next = newNode;
-
-        return true;
+        return head;
     }
 
-        public boolean InsertAtPos(int data,int target,Node head){
+    public Node InsertAtPos(int data,int target,Node head){
+        if(target == 1) return InsertatHead(data,head);
         Node temp = head;
         int count = 1;
-        while( count<target-1 && temp != null){
+        while(count < target-1 && temp != null){
             temp = temp.next;
             count++;
         }
-        if(temp == null) return false;
+        if(temp == null) return head;
         Node newNode = new Node(data);
         newNode.next = temp.next;
         temp.next = newNode;
-
-        return true;
+        return head;
     }
 
     public Node insertInSortedLL(int data,Node head){
-        if (head == null || data < head.data) {
-            return InsertatHead(data,head);
-        }
-
+        if(head == null || data < head.data) return InsertatHead(data,head);
         Node temp = head;
-        while (temp.next != null && temp.next.data < data) {
+        while(temp.next != null && temp.next.data < data){
             temp = temp.next;
         }
         Node newNode = new Node(data);
         newNode.next = temp.next;
         temp.next = newNode;
-
         return head;
     }
 
     public void printList(Node head){
         Node temp = head;
-
-        while (temp != null) {
+        while(temp != null){
             System.out.print(temp.data + "->");
             temp = temp.next;
         }
@@ -110,22 +108,22 @@ public class InsertionInLinkedList {
         Operations ops = new Operations();
         ops.printList(head);
 
-        head = ops.InsertatHead(1, head);
+        // head = ops.InsertatHead(1, head);
+        // ops.printList(head);
+
+        // System.out.println(ops.InsertAfter(2, 2, head));
+        // ops.printList(head);
+
+        // ops.InsertTail(6, head);
+        // ops.printList(head);
+
+        // ops.InsertBefore(9, 2, head);
+        // ops.printList(head);
+
+        ops.InsertAtPos(4, 1, head);
         ops.printList(head);
 
-        System.out.println(ops.InsertAfter(2, 2, head));
-        ops.printList(head);
-
-        ops.InsertTail(6, head);
-        ops.printList(head);
-
-        ops.InsertBefore(9, 2, head);
-        ops.printList(head);
-
-        ops.InsertAtPos(4, 3, head);
-        ops.printList(head);
-
-        ops.insertInSortedLL(3, head);
-        ops.printList(head);
+        // ops.insertInSortedLL(3, head);
+        // ops.printList(head);
     }
 }

@@ -16,7 +16,7 @@ class Node{
 public class TraversalLinked{
     
     public static Node arrayToLinkedList(int[] arr) {
-        if(arr.length == 0) return null;
+        if(arr.length == 0 || arr == null) return null;
         Node head = new Node(arr[0]);
         Node current = head;
 
