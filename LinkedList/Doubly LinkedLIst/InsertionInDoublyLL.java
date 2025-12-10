@@ -14,18 +14,16 @@ class Node {
     }
 }
 class Operation {
-    public Node InsertatHead(int data) {
-        return InsertatHead(data, null);
-    }
 
     public Node InsertatHead(int data,Node head){
         Node temp = new Node(null,data,head);
-        head = temp;
-        return head;
+        if (head != null)
+            head.previous = temp;
+        return temp;
     }
 
     public Node InsertatTail(int data,Node head){
-        if(head == null) return InsertatHead(data);
+        if(head == null) return InsertatHead(data,head);
         Node temp = head;
         while(temp.next != null){
             temp = temp.next;
@@ -38,6 +36,21 @@ class Operation {
 
     }
 
+    public Node InsertAfter(int data,Node head,int target){
+        if(head == null) return head;
+        Node temp = head;
+        while(temp != null && target != temp.data){
+            temp = temp.next;
+        }
+        if (temp == null) return head;
+
+        Node newNode = new Node(temp, data, temp.next);
+        if(temp.next != null)
+            temp.next.previous = newNode;
+        temp.next = newNode;
+
+        return head;
+    }
 
     public Node InsertAtPosition(int data,Node head,int target){
         if(head == null || target<1) return head;
@@ -51,10 +64,9 @@ class Operation {
         }
         if(temp == null) return head;
         Node newNode = new Node(temp, data, temp.next);
-        temp.next = newNode;
         if (temp.next != null)
             temp.next.previous = newNode;
-
+        temp.next = newNode;
         return head;
     }
 
@@ -75,7 +87,7 @@ public class InsertionInDoublyLL {
     public static void main(String[] args) {
         Operation ops = new Operation();
 
-        Node head = ops.InsertatHead(3);
+        Node head = ops.InsertatHead(3,null);
         head = ops.InsertatHead(2,head);
         head = ops.InsertatHead(1,head);
 
@@ -85,6 +97,9 @@ public class InsertionInDoublyLL {
         ops.printforwardLL(head);
 
         head = ops.InsertAtPosition(0, head, 5);
+        ops.printforwardLL(head);
+
+        head = ops.InsertAfter(6, head, 4);
         ops.printforwardLL(head);
     }
 }
