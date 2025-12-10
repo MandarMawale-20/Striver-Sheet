@@ -37,7 +37,27 @@ class Operation {
         return head;
 
     }
-    
+
+
+    public Node InsertAtPosition(int data,Node head,int target){
+        if(head == null || target<1) return head;
+
+        if(target == 1) return InsertatHead(data,head);
+        Node temp = head;
+        int count = 1;
+        while (temp != null  &&  count < target-1) {
+            temp = temp.next;
+            count++;
+        }
+        if(temp == null) return head;
+        Node newNode = new Node(temp, data, temp.next);
+        temp.next = newNode;
+        if (temp.next != null)
+            temp.next.previous = newNode;
+
+        return head;
+    }
+
     void printforwardLL(Node head){
         
         Node temp = head;
@@ -61,7 +81,10 @@ public class InsertionInDoublyLL {
 
         ops.printforwardLL(head);
 
-        ops.InsertatTail(4, head);
+        head = ops.InsertatTail(4, head);
+        ops.printforwardLL(head);
+
+        head = ops.InsertAtPosition(0, head, 5);
         ops.printforwardLL(head);
     }
 }
