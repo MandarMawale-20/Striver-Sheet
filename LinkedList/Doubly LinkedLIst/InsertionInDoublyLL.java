@@ -84,6 +84,22 @@ class Operation {
         return head;
     }
 
+    public Node insertInSortedLL(int data, Node head) {
+    if (head == null || data < head.data)
+        return InsertatHead(data, head);
+    Node temp = head;
+    while (temp.next != null && temp.next.data < data) {
+        temp = temp.next;
+    }
+    Node newNode = new Node(temp, data, temp.next);
+    if (temp.next != null)
+        temp.next.previous = newNode;
+    temp.next = newNode;
+
+    return head;
+    }
+
+
     void printforwardLL(Node head){
         
         Node temp = head;
@@ -118,5 +134,8 @@ public class InsertionInDoublyLL {
 
         head = ops.insertBefore(5, head, 6);
         ops.printforwardLL(head);
+
+        // ops.insertInSortedLL(5, head);
+        // ops.printforwardLL(head);
     }
 }
