@@ -43,16 +43,109 @@ class Operation {
     }
 
     Node DeleteTail(Node head) {
-         if (head == null || head.next == null)
-        return null;
-         Node temp = head;
-         while (temp.next != null) {
+        if (head == null || head.next == null)
+            return null;
+        Node temp = head;
+        while (temp.next != null) {
             temp = temp.next;
-         }
-         temp.previous.next = null;
-         return head;
+        }
+        temp.previous.next = null;
+        return head;
     }
 
+    Node DeleteParticularEle(Node head, int target) {
+        if (head == null)
+            return head;
+        Node temp = head;
+        while (temp != null && temp.data != target) {
+            temp = temp.next;
+        }
+
+        if (temp == null)
+            return head;
+
+        if (temp == head)
+            return DeleteHead(head);
+        if (temp.next == null)
+            return DeleteTail(head);
+
+        temp.previous.next = temp.next;
+        temp.next.previous = temp.previous;
+
+        return head;
+
+    }
+
+    Node DeleteAfter(Node head, int target) {
+        if (head == null)
+            return head;
+
+        Node temp = head;
+        while (temp != null && temp.data != target) {
+            temp = temp.next;
+        }
+
+        if (temp == null || temp.next == null)
+            return head;
+
+        Node toDelete = temp.next;
+
+        temp.next = toDelete.next;
+        if (toDelete.next != null) {
+            toDelete.next.previous = temp;
+        }
+
+        return head;
+    }
+
+    Node DeleteBefore(Node head, int target) {
+        if (head == null)
+            return head;
+
+        Node temp = head;
+        while (temp != null && temp.data != target) {
+            temp = temp.next;
+        }
+
+        if (temp == null || temp.previous == null)
+            return head;
+
+        Node toDelete = temp.previous;
+
+        if (toDelete == head)
+            return DeleteHead(head);
+
+        toDelete.previous.next = temp;
+        temp.previous = toDelete.previous;
+
+        return head;
+    }
+
+    Node DeleteBasedOnIndex(Node head, int index) {
+    if (head == null || index < 0)
+        return head;
+
+    if (index == 1)
+        return DeleteHead(head);
+
+    Node temp = head;
+    int count = 1;
+    while (temp != null && count < index) {
+        temp = temp.next;
+        count++;
+    }
+
+    if (temp == null)
+        return head;
+
+    if (temp.next == null)
+        return DeleteTail(head);
+
+    temp.previous.next = temp.next;
+    temp.next.previous = temp.previous;
+
+    return head;
+}
 
 
     void printforwardLL(Node head) {
@@ -71,7 +164,7 @@ public class DeletionInDoublyLL {
     public static void main(String[] args) {
         Operation ops = new Operation();
 
-        int arr[] = {1,2,3,4,5,6};
+        int arr[] = { 1, 2, 3, 4, 5, 6 };
 
         Node head = ops.arrayToDoublyLinkedList(arr);
         ops.printforwardLL(head);
@@ -79,6 +172,18 @@ public class DeletionInDoublyLL {
         ops.printforwardLL(head);
 
         head = ops.DeleteTail(head);
+        ops.printforwardLL(head);
+
+        head = ops.DeleteParticularEle(head, 3);
+        ops.printforwardLL(head);
+
+        head = ops.DeleteAfter(head, 2);
+        ops.printforwardLL(head);
+
+        head = ops.DeleteBefore(head, 5);
+        ops.printforwardLL(head);
+
+        head = ops.DeleteBasedOnIndex(head, 2);
         ops.printforwardLL(head);
     }
 }
