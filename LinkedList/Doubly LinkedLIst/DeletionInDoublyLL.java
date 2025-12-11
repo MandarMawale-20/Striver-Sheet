@@ -3,33 +3,19 @@ class Node {
     int data;
     Node next;
 
+    Node(int data) {
+        this.data = data;
+    }
+
     Node(Node previous, int data, Node next) {
         this.previous = previous;
         this.data = data;
         this.next = next;
     }
-
-    Node(int data, Node next) {
-        this.previous = null;
-        this.data = data;
-        this.next = next;
-    }
-
-    Node(Node previous, int data) {
-        this.previous = previous;
-        this.data = data;
-        this.next = null;
-    }
-
-    Node(int data) {
-        this.previous = null;
-        this.data = data;
-        this.next = null;
-    }
-
 }
 
 class Operation {
+
     Node arrayToDoublyLinkedList(int arr[]) {
         if (arr == null || arr.length == 0)
             return null;
@@ -47,6 +33,28 @@ class Operation {
         return head;
     }
 
+    Node DeleteHead(Node head) {
+        if (head == null || head.next == null)
+            return null;
+        head = head.next;
+        head.previous = null;
+
+        return head;
+    }
+
+    Node DeleteTail(Node head) {
+         if (head == null || head.next == null)
+        return null;
+         Node temp = head;
+         while (temp.next != null) {
+            temp = temp.next;
+         }
+         temp.previous.next = null;
+         return head;
+    }
+
+
+
     void printforwardLL(Node head) {
 
         Node temp = head;
@@ -59,12 +67,18 @@ class Operation {
     }
 }
 
-public class DoublyLL {
+public class DeletionInDoublyLL {
     public static void main(String[] args) {
-        int arr[] = { 1, 2, 3, 4, 5, 6, 7 };
         Operation ops = new Operation();
-        Node head = ops.arrayToLinkedList(arr);
+
+        int arr[] = {1,2,3,4,5,6};
+
+        Node head = ops.arrayToDoublyLinkedList(arr);
+        ops.printforwardLL(head);
+        head = ops.DeleteHead(head);
         ops.printforwardLL(head);
 
+        head = ops.DeleteTail(head);
+        ops.printforwardLL(head);
     }
 }
