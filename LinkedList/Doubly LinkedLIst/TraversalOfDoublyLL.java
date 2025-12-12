@@ -1,35 +1,22 @@
+
 class Node {
     Node previous;
     int data;
     Node next;
+
+    Node(int data) {
+        this.data = data;
+    }
 
     Node(Node previous, int data, Node next) {
         this.previous = previous;
         this.data = data;
         this.next = next;
     }
-
-    Node(int data, Node next) {
-        this.previous = null;
-        this.data = data;
-        this.next = next;
-    }
-
-    Node(Node previous, int data) {
-        this.previous = previous;
-        this.data = data;
-        this.next = null;
-    }
-
-    Node(int data) {
-        this.previous = null;
-        this.data = data;
-        this.next = null;
-    }
-
 }
 
 class Operation {
+
     Node arrayToDoublyLinkedList(int arr[]) {
         if (arr == null || arr.length == 0)
             return null;
@@ -47,24 +34,44 @@ class Operation {
         return head;
     }
 
-    void printforwardLL(Node head) {
-
+    void traverseForward(Node head) {
         Node temp = head;
-
         while (temp != null) {
             System.out.print(temp.data + "->");
             temp = temp.next;
         }
         System.out.println("null");
     }
+
+    void traverseBackward(Node head) {
+        if (head == null)
+            return;
+
+        Node temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+
+        while (temp != null) {
+            System.out.print(temp.data + "->");
+            temp = temp.previous;
+        }
+        System.out.println("null");
+    }
 }
 
-public class DoublyLL {
+public class TraversalOfDoublyLL {
     public static void main(String[] args) {
-        int arr[] = { 1, 2, 3, 4, 5, 6, 7 };
         Operation ops = new Operation();
-        Node head = ops.arrayToDoublyLinkedList(arr);
-        ops.printforwardLL(head);
 
+        int arr[] = { 1, 2, 3, 4, 5, 6 };
+
+        Node head = ops.arrayToDoublyLinkedList(arr);
+
+        System.out.println("Forward Traversal:");
+        ops.traverseForward(head);
+
+        System.out.println("Backward Traversal:");
+        ops.traverseBackward(head);
     }
 }
