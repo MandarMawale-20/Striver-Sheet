@@ -75,6 +75,6 @@ public class Subset2 {
         for(List<Integer> subset : result2) {
             System.out.println(subset);
         }
-=
+
     }
 }
